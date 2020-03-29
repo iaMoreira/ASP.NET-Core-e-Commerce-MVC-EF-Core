@@ -30,9 +30,17 @@ namespace e_commerce
 
             app.UseEndpoints(endpoints =>
             {
+                var livros  = new List<Livro>();
+                livros.Add(new Livro("001", "Quem mexeu na minha query?", 12.99m));
+                livros.Add(new Livro("002", "Fique Rico com C#", 30.99m));
+                livros.Add(new Livro("003", "Java Para Baixinhos", 25.99m));
+
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Olá mundo!");
+                    foreach (var livro in livros)
+                    {
+                        await context.Response.WriteAsync($"{livro.Codigo, -10} {livro.Nome, -40} {livro.Preco.ToString("C"), 10}\r\n");
+                    }
                 });
             });
         }
